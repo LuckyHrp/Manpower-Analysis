@@ -463,14 +463,14 @@ export default function App() {
       <div className="flex items-center"><label className="text-xs text-gray-600">{label}</label>{hint && <Hint k={hint} />}</div>
       {hint && <HintBox k={hint} />}
       {type === 'select' ? (
-        <select value={val ?? data[k]} onChange={e => onCh ? onCh(e.target.value) : set(k, e.target.value)} className="w-full p-2 border rounded text-sm">
+        <select value={val ?? data[k]} onChange={e => onCh ? onCh(e.target.value) : set(k, e.target.value)} className="w-full p-2 border border-gray-300 rounded text-sm bg-white">
           <option value="">--</option>
           {opts.map(o => <option key={o} value={o}>{o}</option>)}
         </select>
       ) : (
         <div className="flex gap-1">
-          <input type="text" inputMode="numeric" value={val ?? data[k]} onChange={e => onCh ? onCh(e.target.value) : set(k, e.target.value)} className="flex-1 p-2 border rounded text-sm text-right" />
-          {unit && <span className="p-2 bg-gray-100 rounded text-xs">{unit}</span>}
+          <input type="text" inputMode="numeric" value={val ?? data[k]} onChange={e => onCh ? onCh(e.target.value) : set(k, e.target.value)} className="flex-1 p-2 border border-gray-300 rounded text-sm text-right bg-white" />
+          {unit && <span className="p-2 bg-gray-100 rounded text-xs flex items-center">{unit}</span>}
         </div>
       )}
     </div>
@@ -478,28 +478,28 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gray-100 pb-10">
-      <div className="bg-gray-800 text-white p-3 sticky top-0 z-50">
+      <div className="bg-gray-800 text-white p-3 sticky top-0" style={{zIndex: 50}}>
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <div className="font-bold">📊 MANPOWER v2</div>
           <div className="flex gap-2">
-            <button onClick={() => setShowGuide(true)} className="bg-blue-600 px-3 py-1 rounded text-xs">Guide</button>
-            <button onClick={loadExample} className="bg-green-600 px-3 py-1 rounded text-xs">Example</button>
-            <button onClick={reset} className="bg-red-600 px-3 py-1 rounded text-xs">Reset</button>
+            <button onClick={() => setShowGuide(true)} className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-xs">Guide</button>
+            <button onClick={loadExample} className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-xs">Example</button>
+            <button onClick={reset} className="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-xs">Reset</button>
           </div>
         </div>
       </div>
 
       {showGuide && (
-        <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4" onClick={() => setShowGuide(false)}>
-          <div className="bg-white rounded-xl max-w-md w-full p-5 max-h-[80vh] overflow-auto" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4" style={{zIndex: 100}} onClick={() => setShowGuide(false)}>
+          <div className="bg-white rounded-lg max-w-md w-full p-5 overflow-auto" style={{maxHeight: '80vh'}} onClick={e => e.stopPropagation()}>
             <h2 className="font-bold text-lg mb-3">📖 Panduan</h2>
             <div className="space-y-3 text-sm">
-              <div className="bg-red-50 p-3 rounded"><b>❌ Problem:</b> FL untuk reduce FT cost, tapi malah BONCOS (rate tinggi, idle time)</div>
-              <div className="bg-green-50 p-3 rounded"><b>✅ Solution:</b> PT Prime Time - fokus jam 15:00-20:00, rate murah, utilization tinggi</div>
-              <div className="bg-blue-50 p-3 rounded"><b>🎯 Strategi:</b> FT 65% (base) + PT 25% (peak) + FL 10% (flex)</div>
-              <div className="bg-yellow-50 p-3 rounded"><b>💡 Tips:</b> Klik ? untuk penjelasan setiap field</div>
+              <div className="bg-red-50 p-3 rounded"><strong>❌ Problem:</strong> FL untuk reduce FT cost, tapi malah BONCOS (rate tinggi, idle time)</div>
+              <div className="bg-green-50 p-3 rounded"><strong>✅ Solution:</strong> PT Prime Time - fokus jam 15:00-20:00, rate murah, utilization tinggi</div>
+              <div className="bg-blue-50 p-3 rounded"><strong>🎯 Strategi:</strong> FT 65% (base) + PT 25% (peak) + FL 10% (flex)</div>
+              <div className="bg-yellow-50 p-3 rounded"><strong>💡 Tips:</strong> Klik ? untuk penjelasan setiap field</div>
             </div>
-            <button onClick={() => setShowGuide(false)} className="mt-4 w-full bg-gray-800 text-white p-2 rounded">Tutup</button>
+            <button onClick={() => setShowGuide(false)} className="mt-4 w-full bg-gray-800 text-white p-2 rounded hover:bg-gray-700">Tutup</button>
           </div>
         </div>
       )}
@@ -530,7 +530,7 @@ export default function App() {
         {/* Operational */}
         <div className="bg-white rounded-lg shadow p-4">
           <h3 className="font-bold mb-3">⚙️ Operational</h3>
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             <Input label="Sessions" k="sessions" hint="sessions" />
             <Input label="Duration" k="duration" unit="min" hint="duration" />
             <Input label="Students" k="students" hint="students" />
@@ -573,7 +573,7 @@ export default function App() {
           </div>
           <div className="bg-orange-50 rounded p-3 mb-3">
             <p className="text-xs font-bold text-orange-700 mb-2">🟠 FREELANCE (FL) - ❌ Often Overused</p>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-3 gap-2">
               <Input label="Hrs/Day" k="flHrs" hint="flHrs" />
               <Input label="Days/Mo" k="flDays" hint="flDays" />
               <Input label="MaxTeach" k="flMax" hint="flMax" />
@@ -589,8 +589,8 @@ export default function App() {
               <Input label="MaxTeach" k="ptMax" hint="ptMax" />
               <Input label="Eff%" k="ptEff" unit="%" hint="ptEff" />
             </div>
-            <div className="flex items-center gap-2 mt-2 bg-green-100 p-2 rounded">
-              <input type="checkbox" checked={data.ptPeakOnly} onChange={e => set('ptPeakOnly', e.target.checked)} className="w-5 h-5" />
+                          <div className="flex items-center gap-2 mt-2 bg-green-100 p-2 rounded">
+              <input type="checkbox" checked={data.ptPeakOnly} onChange={e => set('ptPeakOnly', e.target.checked)} style={{width: '20px', height: '20px'}} />
               <span className="text-sm font-bold text-green-700">🎯 PT Peak Only (15:00-20:00)</span>
               <Hint k="ptPeakOnly" />
             </div>
@@ -647,7 +647,7 @@ export default function App() {
         {/* Simulation */}
         <div className="bg-white rounded-lg shadow p-4">
           <h3 className="font-bold mb-3">🎯 Simulation</h3>
-          <div className="grid grid-cols-3 md:grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 gap-2">
             <Input label="FT" val={sim.ft} onCh={v => setSim({...sim, ft: n(v)})} />
             <Input label="FL" val={sim.fl} onCh={v => setSim({...sim, fl: n(v)})} />
             <Input label="PT" val={sim.pt} onCh={v => setSim({...sim, pt: n(v)})} />
